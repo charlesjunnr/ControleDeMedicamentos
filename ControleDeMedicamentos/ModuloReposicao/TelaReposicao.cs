@@ -36,7 +36,9 @@ namespace ControleDeMedicamentos.ModuloReposicao
             Console.WriteLine(" [1] - Cadastrar Nova Reposição ");
             Console.WriteLine(" [2] - Visualizar Reposições ");
             Console.WriteLine(" [3] - Visualizar Medicamentos mais repostos ");
-            Console.WriteLine(" [4] - Voltar ");
+            Console.WriteLine(" [4] - Editar Reposições ");
+            Console.WriteLine(" [5] - Excluir Reposições ");
+            Console.WriteLine(" [6] - Voltar ");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
 
             string opcao = Console.ReadLine();
@@ -60,7 +62,6 @@ namespace ControleDeMedicamentos.ModuloReposicao
             reposicao.quantidadeMedicamento = Convert.ToInt32(Console.ReadLine());
             reposicao.medicamento.AumentarQuantidade(reposicao.quantidadeMedicamento);
             
-
             VisualizarPreRequisitosFornecedor(true);
             Console.WriteLine("Digite o ID do Fornecedor: ");
             int idFornecedor = Convert.ToInt32(Console.ReadLine());
@@ -96,7 +97,7 @@ namespace ControleDeMedicamentos.ModuloReposicao
 
             foreach (Reposicao reposicao in repositorioReposicao.listaRegistros)
             {
-                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -30} | {5, -20} ", reposicao.id, reposicao.medicamento.nome, reposicao.fornecedor.nome, reposicao.funcionario.nomeFuncionario, reposicao.quantidadeMedicamento, reposicao.DateTime.ToShortDateString()); 
+                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -30} | {5, -20} ", reposicao.id, reposicao.medicamento.nome, reposicao.fornecedor.nome, reposicao.funcionario.nome, reposicao.quantidadeMedicamento, reposicao.DateTime.ToShortDateString()); 
             }
             Console.ReadLine();
             return true;
@@ -135,7 +136,7 @@ namespace ControleDeMedicamentos.ModuloReposicao
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
             foreach (Funcionario funcionario in repositorioFuncionario.listaRegistros)
             {
-                Console.WriteLine("| {0, -3} | {1, -20} |", funcionario.id, funcionario.nomeFuncionario);
+                Console.WriteLine("| {0, -3} | {1, -20} |", funcionario.id, funcionario.nome);
                 Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
             }
 
@@ -178,6 +179,68 @@ namespace ControleDeMedicamentos.ModuloReposicao
             {
                 Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", re.id, re.medicamento.nome, re.quantidadeMedicamento);
             }
+            Console.ReadLine();
+        }
+        internal void EditarReposicao()
+        {
+            Console.Clear();
+            ApresentarCabecalho("Editar Reposição", ConsoleColor.Green);
+
+            VisualizarReposicoes(true);
+
+            Console.WriteLine("Digite o Id da Reposição: ");
+            int posicao = Convert.ToInt32(Console.ReadLine());
+
+            Reposicao reposicaoEditada = repositorioReposicao.BuscarPorId(posicao);
+            reposicaoEditada.medicamento.DiminuirQuantidade(reposicaoEditada.quantidadeMedicamento);
+
+            VisualizarPreRequisitosMedicamentos(true);
+            Console.WriteLine("Digite o ID do Medicamento: ");
+            int idMedicamento = Convert.ToInt32(Console.ReadLine());
+            Medicamento medicamentoReposicao = repositorioMedicamento.BuscarPorId(idMedicamento);
+            reposicaoEditada.medicamento = medicamentoReposicao;
+
+            Console.WriteLine("Digite a quantidade de Medicamentos: ");
+            reposicaoEditada.quantidadeMedicamento = Convert.ToInt32(Console.ReadLine());
+            reposicaoEditada.medicamento.AumentarQuantidade(reposicaoEditada.quantidadeMedicamento);
+
+            VisualizarPreRequisitosFornecedor(true);
+            Console.WriteLine("Digite o ID do Fornecedor: ");
+            int idFornecedor = Convert.ToInt32(Console.ReadLine());
+            Fornecedor fornecedorReposicao = repositorioFornecedor.BuscarPorId(idFornecedor);
+            reposicaoEditada.fornecedor = fornecedorReposicao;
+
+            VisualizarPreRequisitosFuncionario(true);
+            Console.WriteLine("Digite o ID do Funcionário: ");
+            int idFuncionario = Convert.ToInt32(Console.ReadLine());
+            Funcionario funcionarioReposicao = repositorioFuncionario.BuscarPorId(idFuncionario);
+            reposicaoEditada.funcionario = funcionarioReposicao;
+
+            reposicaoEditada.DateTime = DateTime.Today;
+
+            ApresentarMensagem("Reposição feita com sucesso!", ConsoleColor.Green);
+
+            repositorioMedicamento.ValidarDisponibilidade();
+            Console.ReadLine();
+        }
+
+        internal void ExcluirReposicao()
+        {
+            bool temReposicao = VisualizarReposicoes(false);
+            if (temReposicao == false)
+            {
+                return;
+            }
+            ApresentarCabecalho("Excluindo Reposição", ConsoleColor.Yellow);
+            Console.WriteLine("Digite o Id da Reposição: ");
+            int posicao = Convert.ToInt32(Console.ReadLine());
+
+            Reposicao reposicaoDeletada = repositorioReposicao.BuscarPorId(posicao);
+
+            reposicaoDeletada.medicamento.DiminuirQuantidade(reposicaoDeletada.quantidadeMedicamento);
+
+            repositorioReposicao.Excluir(reposicaoDeletada);
+            ApresentarMensagem("Reposição excluída com sucesso!", ConsoleColor.Green);
             Console.ReadLine();
         }
     }

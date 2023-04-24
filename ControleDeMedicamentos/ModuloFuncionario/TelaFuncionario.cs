@@ -76,7 +76,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
             Funcionario funcionarioEditado = repositorioFuncionario.BuscarPorId(posicao);
 
             Console.Write("Nome: ");
-            funcionarioEditado.nomeFuncionario = Console.ReadLine();
+            funcionarioEditado.nome = Console.ReadLine();
 
             Console.Write("Unidade de Saúde: ");
             funcionarioEditado.unidadeSaude = Console.ReadLine();
@@ -128,7 +128,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
 
             foreach (Funcionario funcionario in repositorioFuncionario.listaRegistros)
             {
-                Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-20} |", funcionario.id, funcionario.nomeFuncionario, funcionario.unidadeSaude, funcionario.telefone, funcionario.cpf);
+                Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-20} |", funcionario.id, funcionario.nome, funcionario.unidadeSaude, funcionario.telefone, funcionario.cpf);
                 Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
             }
             Console.ReadLine();

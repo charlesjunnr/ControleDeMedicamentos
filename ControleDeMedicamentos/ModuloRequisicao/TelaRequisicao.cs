@@ -28,12 +28,13 @@ namespace ControleDeMedicamentos.ModuloRequisicao
         }
         public string ApresentarMenuRequisicao()
         {
-            
             ApresentarCabecalho("Requisições", ConsoleColor.DarkGreen);
             Console.WriteLine(" [1] - Cadastrar Nova Requisição ");
             Console.WriteLine(" [2] - Visualizar Requisições ");
             Console.WriteLine(" [3] - Visualizar Medicamentos mais retirados ");
-            Console.WriteLine(" [4] - Sair ");
+            Console.WriteLine(" [4] - Editar Requisições ");
+            Console.WriteLine(" [5] - Excluir Requisições ");
+            Console.WriteLine(" [6] - Sair ");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
 
             string opcao = Console.ReadLine();
@@ -96,7 +97,7 @@ namespace ControleDeMedicamentos.ModuloRequisicao
 
             foreach (Requisicao requisicao in repositorioRequisicao.listaRegistros)
             {
-                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -20} ", requisicao.id, requisicao.paciente.nome, requisicao.funcionario.nomeFuncionario, requisicao.medicamento.nome, requisicao.quantidadeMedicamento);
+                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -20} ", requisicao.id, requisicao.paciente.nome, requisicao.funcionario.nome, requisicao.medicamento.nome, requisicao.quantidadeMedicamento);
             }
 
             Console.ReadLine();
@@ -161,7 +162,7 @@ namespace ControleDeMedicamentos.ModuloRequisicao
             Console.WriteLine(" -------------------------------- ");
             foreach (Funcionario funcionario in repositorioFuncionario.listaRegistros)
             {
-                Console.WriteLine("| {0, -3} | {1, -20} |", funcionario.id, funcionario.nomeFuncionario);
+                Console.WriteLine("| {0, -3} | {1, -20} |", funcionario.id, funcionario.nome);
             }
             Console.WriteLine();
 
@@ -183,6 +184,74 @@ namespace ControleDeMedicamentos.ModuloRequisicao
             {
                 Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", re.id, re.medicamento.nome, re.quantidadeMedicamento);
             }
+            Console.ReadLine();
+        }
+        internal void EditarRequisicao()
+        {
+            Console.Clear();
+            ApresentarCabecalho("Editar Requisição", ConsoleColor.DarkGreen);
+
+            VisualizarRequisicoes(true);
+
+            Console.WriteLine("Digite o Id da requisição: ");
+            int posicao = Convert.ToInt32(Console.ReadLine());
+
+            Requisicao requisicaoEditada = repositorioRequisicao.BuscarPorId(posicao);
+            requisicaoEditada.medicamento.AumentarQuantidade(requisicaoEditada.quantidadeMedicamento);
+
+            VisualizarPreRequisitosMedicamentos(true);
+            
+            Console.WriteLine("Id do medicamento: ");
+            int idMedicamento = Convert.ToInt32(Console.ReadLine());
+            Medicamento medicamentoRequisicao = repositorioMedicamento.BuscarPorId(idMedicamento);
+            requisicaoEditada.medicamento = medicamentoRequisicao;
+
+            Console.WriteLine("Quantidade de caixas: ");
+            requisicaoEditada.quantidadeMedicamento = Convert.ToInt32(Console.ReadLine());
+
+            if (requisicaoEditada.medicamento.quantidade < requisicaoEditada.quantidadeMedicamento)
+            {
+                ApresentarMensagem("Não há caixas o suficiente!", ConsoleColor.Red);
+                Console.ReadLine();
+                return;
+            }
+            requisicaoEditada.medicamento.DiminuirQuantidade(requisicaoEditada.quantidadeMedicamento);
+
+            VisualizarPreRequisitosPacientes(true);
+            Console.WriteLine("Id do paciente: ");
+            int idPaciente = Convert.ToInt32(Console.ReadLine());
+            Paciente paciente = repositorioPaciente.BuscarPorId(idPaciente);
+            requisicaoEditada.paciente = paciente;
+
+            VisualizarPreRequisitosFuncionario(true);
+            Console.WriteLine("Id do funcionário: ");
+            int idFuncionario = Convert.ToInt32(Console.ReadLine());
+            Funcionario funcionario = repositorioFuncionario.BuscarPorId(idFuncionario);
+            requisicaoEditada.funcionario = funcionario;
+
+            ApresentarMensagem("Requisição editada com sucesso!", ConsoleColor.Green);
+
+            repositorioMedicamento.ValidarDisponibilidade();
+            Console.ReadLine();
+        }
+
+        internal void ExcluirRequisicao()
+        {
+            bool temRequisicao = VisualizarRequisicoes(false);
+            if (temRequisicao == false)
+            {
+                return;
+            }
+            ApresentarCabecalho("Excluindo requisição", ConsoleColor.Yellow);
+            Console.WriteLine("Digite o Id da Requisição: ");
+            int posicao = Convert.ToInt32(Console.ReadLine());
+
+            Requisicao requisicaoDeletada = repositorioRequisicao.BuscarPorId(posicao);
+
+            requisicaoDeletada.medicamento.AumentarQuantidade(requisicaoDeletada.quantidadeMedicamento);
+
+            repositorioRequisicao.Excluir(requisicaoDeletada);
+            ApresentarMensagem("Requisição excluída com sucesso!", ConsoleColor.Green);
             Console.ReadLine();
         }
     }

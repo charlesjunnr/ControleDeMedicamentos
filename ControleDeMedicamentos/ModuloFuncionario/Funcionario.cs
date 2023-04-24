@@ -8,7 +8,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
 {
     public class Funcionario
     {
-        public string nomeFuncionario { get; set; }
+        public string nome { get; set; }
         public string unidadeSaude { get; set; }
         public string endereco { get; set; }
         public string cpf { get; set; }
@@ -17,8 +17,8 @@ namespace ControleDeMedicamentos.ModuloFuncionario
         public int id { get; private set; }
         public Funcionario(string nome, string unidade, string endereco, string cpf, string telefone)
         {
-            nomeFuncionario = nome;
-            unidadeSaude = unidade;
+            this.nome = nome;
+            this.unidadeSaude = unidade;
             this.endereco = endereco;
             this.cpf = cpf;
             this.telefone = telefone;

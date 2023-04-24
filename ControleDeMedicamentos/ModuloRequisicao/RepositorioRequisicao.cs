@@ -1,6 +1,7 @@
 ﻿using ControleDeMedicamentos.ModuloFuncionario;
 using ControleDeMedicamentos.ModuloMae;
 using ControleDeMedicamentos.ModuloMedicamento;
+using ControleDeMedicamentos.ModuloPaciente;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +34,10 @@ namespace ControleDeMedicamentos.ModuloRequisicao
             return null!;
 
         }
-        
+        public void Excluir(Requisicao requisicao)
+        {
+            listaRegistros.Remove(requisicao);
+        }
+
     }
 }

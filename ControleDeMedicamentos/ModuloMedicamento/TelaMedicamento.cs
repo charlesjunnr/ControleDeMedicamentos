@@ -108,8 +108,6 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             Console.Write("Tipo: ");
             medicamentoEditado.tipo = Console.ReadLine();
 
-
-
             ApresentarMensagem("Medicamento editado com sucesso!", ConsoleColor.Green);
             Console.ReadLine();
             repositorioMedicamento.ValidarDisponibilidade();

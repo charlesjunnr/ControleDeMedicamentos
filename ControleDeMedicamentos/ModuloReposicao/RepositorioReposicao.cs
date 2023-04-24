@@ -1,4 +1,5 @@
 ﻿using ControleDeMedicamentos.ModuloMae;
+using ControleDeMedicamentos.ModuloPaciente;
 using ControleDeMedicamentos.ModuloRequisicao;
 using System;
 using System.Collections;
@@ -31,6 +32,10 @@ namespace ControleDeMedicamentos.ModuloReposicao
             }
             return null!;
 
+        }
+        public void Excluir(Reposicao reposicao)
+        {
+            listaRegistros.Remove(reposicao);
         }
     }
 }

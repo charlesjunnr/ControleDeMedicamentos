@@ -26,6 +26,8 @@ namespace ControleDeMedicamentos.ModuloFornecedor
             Console.WriteLine(" [3] - Editar fornecedores ");
             Console.WriteLine(" [4] - Excluir fornecedores ");
             Console.WriteLine(" [5] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
 
             return opcao;

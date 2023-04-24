@@ -4,6 +4,7 @@ using ControleDeMedicamentos.ModuloMae;
 using ControleDeMedicamentos.ModuloMedicamento;
 using ControleDeMedicamentos.ModuloPaciente;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,10 @@ namespace ControleDeMedicamentos.ModuloRequisicao
             ApresentarCabecalho("Requisições", ConsoleColor.DarkGreen);
             Console.WriteLine(" [1] - Cadastrar Nova Requisição ");
             Console.WriteLine(" [2] - Visualizar Requisições ");
-            Console.WriteLine(" [3] - Sair ");
+            Console.WriteLine(" [3] - Visualizar Medicamentos mais retirados ");
+            Console.WriteLine(" [4] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
             return opcao;
         }
@@ -58,6 +62,7 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 return;
             }
             requisicao.medicamento.quantidade -= requisicao.quantidadeMedicamento;
+            
 
             VisualizarPreRequisitosPacientes(true);
             Console.WriteLine("Id do paciente: ");
@@ -73,6 +78,8 @@ namespace ControleDeMedicamentos.ModuloRequisicao
 
             repositorioRequisicao.AdicionarNaLista(requisicao);
             ApresentarMensagem("Requisição adicionada com sucesso!", ConsoleColor.Green);
+            
+            repositorioMedicamento.ValidarDisponibilidade();
             Console.ReadLine();
         }
         internal bool VisualizarRequisicoes(bool temRequisicao)
@@ -83,7 +90,7 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 Console.ReadKey();
                 return false;
             }
-            ApresentarMensagem("Requisições", ConsoleColor.Cyan);
+            ApresentarMensagem("\nRequisições", ConsoleColor.Cyan);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -20} ", " ID", "Paciente", "Funcionário", "Medicamento", "Quantidade retirada");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
@@ -106,17 +113,18 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 return false;
             }
 
-            ApresentarMensagem("Pacientes: ", ConsoleColor.Green);
+            ApresentarMensagem("\nPacientes: ", ConsoleColor.Green);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} |", " ID", "Paciente");
-            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+            Console.WriteLine(" -------------------------------- ");
             
             foreach (Paciente paciente in repositorioPaciente.listaRegistros)
             {
                 Console.WriteLine("| {0, -3} | {1, -20} |", paciente.id, paciente.nome);
-                Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+                
             }
-           
+            Console.WriteLine();
+
             return true;
         }
         public bool VisualizarPreRequisitosMedicamentos(bool temMedicamento)
@@ -127,15 +135,16 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 Console.ReadKey();
                 return false;
             }
-            ApresentarMensagem("Medicamentos: ", ConsoleColor.Green);
+            ApresentarMensagem("\nMedicamentos: ", ConsoleColor.Green);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} | {2, -13} |", " ID", "Medicamento", "Quantidade");
-            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+            Console.WriteLine(" ---------------------------------------- ");
             foreach (Medicamento medicamento in repositorioMedicamento.listaRegistros)
             {
                 Console.WriteLine("| {0, -3} | {1, -20} | {2, -13} |", medicamento.id, medicamento.nome, medicamento.quantidade);
-                Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
             }
+            Console.WriteLine();
+
             return true;
         }
         public bool VisualizarPreRequisitosFuncionario(bool temFuncionario)
@@ -147,18 +156,35 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 return false;
             }
             
-            ApresentarMensagem("Funcionários: ", ConsoleColor.Green);
+            ApresentarMensagem("\nFuncionários: ", ConsoleColor.Green);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} |", " ID", "Funcionario");
-            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+            Console.WriteLine(" -------------------------------- ");
             foreach (Funcionario funcionario in repositorioFuncionario.listaRegistros)
             {
                 Console.WriteLine("| {0, -3} | {1, -20} |", funcionario.id, funcionario.nomeFuncionario);
-                Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
             }
+            Console.WriteLine();
+
 
             return true;
 
+        }
+        public void MedicamentosMaisSolicitados()
+        {
+            ArrayList requisicoes = repositorioRequisicao.BuscarTodos();
+            List<Requisicao> requisicao = new List<Requisicao>(requisicoes.Cast<Requisicao>());
+            List<Requisicao> listaOrdenada = requisicao.OrderByDescending(i => i.quantidadeMedicamento).ToList();
+
+            ApresentarMensagem("Medicamentos mais retirados: ", ConsoleColor.Blue);
+            Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", "ID", "Nome", "Quantidade");
+            Console.WriteLine(" -------------------------------- ");
+            
+            foreach (Requisicao re in listaOrdenada) 
+            {
+                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", re.id, re.medicamento.nome, re.quantidadeMedicamento);
+            }
+            Console.ReadLine();
         }
     }
 }

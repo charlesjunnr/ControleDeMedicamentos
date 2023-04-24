@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeMedicamentos.ModuloMedicamento
 {
-    internal class RepositorioMedicamento : RepositorioMae
+    internal class RepositorioMedicamento : RepositorioMae 
     {
         public void AdicionarNaLista(Medicamento medicamento)
         {
@@ -35,6 +35,20 @@ namespace ControleDeMedicamentos.ModuloMedicamento
         public void Excluir(Medicamento medicamento)
         {
             listaRegistros.Remove(medicamento);
+        }
+        public void ValidarDisponibilidade()
+        {
+            foreach (Medicamento medicamento in listaRegistros)
+            {
+                if (medicamento.quantidade > 0)
+                {
+                    medicamento.estaDisponivel = true;
+                }
+                else
+                {
+                    medicamento.estaDisponivel = false;
+                }
+            }
         }
     }
 }

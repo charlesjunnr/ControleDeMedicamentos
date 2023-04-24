@@ -3,7 +3,9 @@ using ControleDeMedicamentos.ModuloFuncionario;
 using ControleDeMedicamentos.ModuloMae;
 using ControleDeMedicamentos.ModuloMedicamento;
 using ControleDeMedicamentos.ModuloPaciente;
+using ControleDeMedicamentos.ModuloRequisicao;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +35,10 @@ namespace ControleDeMedicamentos.ModuloReposicao
             ApresentarCabecalho("Reposição de Medicamentos", ConsoleColor.Green);
             Console.WriteLine(" [1] - Cadastrar Nova Reposição ");
             Console.WriteLine(" [2] - Visualizar Reposições ");
-            Console.WriteLine(" [3] - Voltar ");
+            Console.WriteLine(" [3] - Visualizar Medicamentos mais repostos ");
+            Console.WriteLine(" [4] - Voltar ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
             return opcao;
         }
@@ -54,6 +59,7 @@ namespace ControleDeMedicamentos.ModuloReposicao
             Console.WriteLine("Digite a quantidade de Medicamentos: ");
             reposicao.quantidadeMedicamento = Convert.ToInt32(Console.ReadLine());
             reposicao.medicamento.quantidade += reposicao.quantidadeMedicamento;
+            
 
             VisualizarPreRequisitosFornecedor(true);
             Console.WriteLine("Digite o ID do Fornecedor: ");
@@ -71,10 +77,10 @@ namespace ControleDeMedicamentos.ModuloReposicao
 
             repositorioReposicao.AdicionarNaLista(reposicao);
             ApresentarMensagem("Reposição feita com sucesso!", ConsoleColor.Green);
+            
+            repositorioMedicamento.ValidarDisponibilidade();
             Console.ReadLine();
-
         }
-
         public bool VisualizarReposicoes(bool temReposicao)
         {
             if (repositorioReposicao.listaRegistros.Count == 0)
@@ -157,6 +163,22 @@ namespace ControleDeMedicamentos.ModuloReposicao
 
             return true;
 
+        }
+        public void MedicamentosMaisRepostos()
+        {
+            ArrayList reposicoes = repositorioReposicao.BuscarTodos();
+            List<Reposicao> reposicao = new List<Reposicao>(reposicoes.Cast<Reposicao>());
+            List<Reposicao> listaOrdenada = reposicao.OrderByDescending(i => i.quantidadeMedicamento).ToList();
+
+            ApresentarMensagem("Medicamentos mais repostos: ", ConsoleColor.Blue);
+            Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", "ID", "Nome", "Quantidade");
+            Console.WriteLine(" -------------------------------- ");
+
+            foreach (Reposicao re in listaOrdenada)
+            {
+                Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} |", re.id, re.medicamento.nome, re.quantidadeMedicamento);
+            }
+            Console.ReadLine();
         }
     }
 }

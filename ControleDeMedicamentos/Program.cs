@@ -150,7 +150,7 @@ namespace ControleDeMedicamentos
                 }else if(opcao == "5")
                 {
                     string opcaoMenu6 = telaRequisicao.ApresentarMenuRequisicao();
-                    if (opcaoMenu6 == "3")
+                    if (opcaoMenu6 == "4")
                     {
                         continue;
                     }
@@ -160,11 +160,14 @@ namespace ControleDeMedicamentos
                     }else if (opcaoMenu6 == "2")
                     {
                         telaRequisicao.VisualizarRequisicoes(true);
+                    }else if( opcaoMenu6 == "3")
+                    {
+                        telaRequisicao.MedicamentosMaisSolicitados();
                     }
                 }else if(opcao == "6")
                 {
                     string opcaoMenu7 = telaReposicao.ApresentarMenuReposicao();
-                    if(opcaoMenu7 == "3")
+                    if(opcaoMenu7 == "4")
                     {
                         continue;
                     }else if(opcaoMenu7 == "1")
@@ -173,6 +176,9 @@ namespace ControleDeMedicamentos
                     }else if(opcaoMenu7 == "2")
                     {
                         telaReposicao.VisualizarReposicoes(true);
+                    }else if(opcaoMenu7 == "3")
+                    {
+                        telaReposicao.MedicamentosMaisRepostos();
                     }
                 }
             }

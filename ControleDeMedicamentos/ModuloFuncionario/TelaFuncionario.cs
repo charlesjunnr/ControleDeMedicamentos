@@ -25,6 +25,8 @@ namespace ControleDeMedicamentos.ModuloFuncionario
             Console.WriteLine(" [3] - Editar funcionário ");
             Console.WriteLine(" [4] - Excluir funcionário ");
             Console.WriteLine(" [5] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
 
             return opcao;

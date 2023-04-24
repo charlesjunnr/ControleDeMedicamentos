@@ -29,6 +29,8 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             Console.WriteLine(" [3] - Editar medicamentos ");
             Console.WriteLine(" [4] - Excluir medicamentos ");
             Console.WriteLine(" [5] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
 
             return opcao;
@@ -46,14 +48,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             Console.Write("Número de caixas: ");
             medicamento.quantidade = Convert.ToInt32(Console.ReadLine());
             
-            if (medicamento.quantidade > 0) 
-            {
-                medicamento.estaDisponivel = true;
-            }
-            else
-            {
-                medicamento.estaDisponivel = false;
-            }
+
             Console.Write("Tipo: ");
             medicamento.tipo = Console.ReadLine();
             
@@ -72,7 +67,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             repositorioMedicamento.AdicionarNaLista(medicamento);
             ApresentarMensagem("Medicamento cadastrado com sucesso!", ConsoleColor.Green);
             Console.ReadLine();
-
+            repositorioMedicamento.ValidarDisponibilidade();
         }
         public void VisualizarFornecedorAtual()
         {
@@ -108,6 +103,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
 
             Console.Write("Quantidade de caixas: ");
             medicamentoEditado.quantidade = Convert.ToInt32(Console.ReadLine());
+            
 
             Console.Write("Tipo: ");
             medicamentoEditado.tipo = Console.ReadLine();
@@ -116,7 +112,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
 
             ApresentarMensagem("Medicamento editado com sucesso!", ConsoleColor.Green);
             Console.ReadLine();
-
+            repositorioMedicamento.ValidarDisponibilidade();
         }
         public bool VisualizarMedicamento(bool mostrarCabecalho)
         {
@@ -129,25 +125,29 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             }
             ApresentarCabecalho("Medicamentos", ConsoleColor.Magenta);
 
-            Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} |", " ID", "Nome", "Tipo", "Quantidade de caixas", "Fornecedor");
-            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+            Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} | {5,-10} |", " ID", "Nome", "Tipo", "Quantidade de caixas", "Fornecedor", "Disponibilidade");
+            Console.WriteLine(" -------------------------------------------------------------------------------------------------------------------- ");
 
+            string mensagem = "";
             foreach (Medicamento medicamento in repositorioMedicamento.listaRegistros)
             {
-                if(medicamento.quantidade == 0)
+                if (medicamento.estaDisponivel == true)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    mensagem = "Disponível";
+                    
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    mensagem = "Indisponível";
+                    
                 }
-                Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} |", medicamento.id, medicamento.nome, medicamento.tipo, medicamento.quantidade, medicamento.Fornecedor.nome);
+                Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} | {5,-10} |", medicamento.id, medicamento.nome, medicamento.tipo, medicamento.quantidade, medicamento.Fornecedor.nome, mensagem);
 
                 Console.ResetColor();
             }
             Console.WriteLine();
-            ApresentarMensagem("Os medicamentos em vermelho não estão disponíveis!", ConsoleColor.Red);
             Console.ReadLine();
             return true;
         }
@@ -181,5 +181,6 @@ namespace ControleDeMedicamentos.ModuloMedicamento
 
             this.repositorioMedicamento.AdicionarNaLista(medicamentoTeste);
         }
+        
     }
 }

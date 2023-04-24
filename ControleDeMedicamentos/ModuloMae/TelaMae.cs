@@ -19,6 +19,8 @@ namespace ControleDeMedicamentos.ModuloMae
             Console.WriteLine(" [5] - Visualizar Requisições de Medicamentos ");
             Console.WriteLine(" [6] - Visualizar Reposição de Medicamentos ");
             Console.WriteLine(" [7] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
 
             return opcao;

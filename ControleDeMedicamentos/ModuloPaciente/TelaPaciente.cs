@@ -26,6 +26,8 @@ namespace ControleDeMedicamentos.ModuloPaciente
             Console.WriteLine(" [3] - Editar pacientes ");
             Console.WriteLine(" [4] - Excluir pacientes ");
             Console.WriteLine(" [5] - Sair ");
+            Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
+
             string opcao = Console.ReadLine();
 
             return opcao;

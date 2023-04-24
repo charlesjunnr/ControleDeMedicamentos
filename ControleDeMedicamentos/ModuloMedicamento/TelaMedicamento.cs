@@ -121,9 +121,9 @@ namespace ControleDeMedicamentos.ModuloMedicamento
                 Console.ReadLine();
                 return false;
             }
-            ApresentarCabecalho("Medicamentos", ConsoleColor.Magenta);
+            ApresentarCabecalho("Medicamentos", ConsoleColor.Yellow);
 
-            Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} | {5,-10} |", " ID", "Nome", "Tipo", "Quantidade de caixas", "Fornecedor", "Disponibilidade");
+            Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-17} | {5,-10} |", " ID", "Nome", "Tipo", "Quantidade de caixas", "Fornecedor", "Estado");
             Console.WriteLine(" -------------------------------------------------------------------------------------------------------------------- ");
 
             string mensagem = "";

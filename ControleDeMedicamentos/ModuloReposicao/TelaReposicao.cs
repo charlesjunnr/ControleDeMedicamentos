@@ -19,7 +19,6 @@ namespace ControleDeMedicamentos.ModuloReposicao
         private RepositorioMedicamento repositorioMedicamento;
         private RepositorioFuncionario repositorioFuncionario;
         private RepositorioFornecedor repositorioFornecedor;
-        private RepositorioReposicao repositorioReposicao1;
 
         public TelaReposicao(RepositorioReposicao repositorioReposicao, RepositorioMedicamento repositorioMedicamento, RepositorioFuncionario repositorioFuncionario, RepositorioFornecedor repositorioFornecedor)
         {

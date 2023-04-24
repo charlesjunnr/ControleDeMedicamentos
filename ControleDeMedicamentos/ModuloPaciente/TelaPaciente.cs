@@ -67,7 +67,7 @@ namespace ControleDeMedicamentos.ModuloPaciente
                 return;
             }
 
-            ApresentarCabecalho("Editar paciente", ConsoleColor.Cyan);
+            ApresentarCabecalho("Editar paciente", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do paciente: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
@@ -99,7 +99,7 @@ namespace ControleDeMedicamentos.ModuloPaciente
                 Console.ReadLine();
                 return false;
             }
-            ApresentarCabecalho("Pacientes", ConsoleColor.Cyan);
+            ApresentarCabecalho("Pacientes", ConsoleColor.Yellow);
 
             Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} |", " ID", "Nome", "Área", "Cartão SUS", "Telefone");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");
@@ -120,7 +120,7 @@ namespace ControleDeMedicamentos.ModuloPaciente
             {
                 return;
             }
-            ApresentarCabecalho("Excluindo paciente", ConsoleColor.Cyan);
+            ApresentarCabecalho("Excluindo paciente", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do paciente: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 

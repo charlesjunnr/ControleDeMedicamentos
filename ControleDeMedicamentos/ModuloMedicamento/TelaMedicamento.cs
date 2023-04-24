@@ -38,7 +38,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
         internal void CadastrarMedicamento()
         {
             Console.Clear();
-            ApresentarCabecalho("Cadastro de Medicamentos", ConsoleColor.Magenta);
+            ApresentarCabecalho("Cadastro de Medicamentos", ConsoleColor.Yellow);
 
             Medicamento medicamento = new Medicamento();
 
@@ -71,7 +71,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
         }
         public void VisualizarFornecedorAtual()
         {
-            ApresentarCabecalho("Fornecedores", ConsoleColor.Cyan);
+            ApresentarCabecalho("Fornecedores", ConsoleColor.Yellow);
 
             Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-25} | {4,-13} |", " ID", "Nome", "Empresa", "CNPJ", "Telefone");
 
@@ -92,7 +92,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
                 return;
             }
 
-            ApresentarCabecalho("Editar medicamento", ConsoleColor.Cyan);
+            ApresentarCabecalho("Editar medicamento", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do medicamento: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
@@ -158,7 +158,7 @@ namespace ControleDeMedicamentos.ModuloMedicamento
             {
                 return;
             }
-            ApresentarCabecalho("Excluindo medicamento", ConsoleColor.Cyan);
+            ApresentarCabecalho("Excluindo medicamento", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do medicamento: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 

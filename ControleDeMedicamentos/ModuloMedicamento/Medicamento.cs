@@ -15,6 +15,14 @@ namespace ControleDeMedicamentos.ModuloMedicamento
         public int quantidade { get; set; }
         public bool estaDisponivel { get; set; }
         public Fornecedor Fornecedor { get; set; }
+        public void AumentarQuantidade(int quantidade)
+        {
+            this.quantidade += quantidade;
+        }
+        public void DiminuirQuantidade(int quantidade)
+        {
+            this.quantidade -= quantidade;
+        }
         public static int contadorId = 1;
         public void AdicionarId()
         {

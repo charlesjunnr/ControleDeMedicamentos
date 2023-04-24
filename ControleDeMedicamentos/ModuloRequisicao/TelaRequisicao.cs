@@ -61,9 +61,8 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 Console.ReadLine();
                 return;
             }
-            requisicao.medicamento.quantidade -= requisicao.quantidadeMedicamento;
+            requisicao.medicamento.DiminuirQuantidade(requisicao.quantidadeMedicamento);
             
-
             VisualizarPreRequisitosPacientes(true);
             Console.WriteLine("Id do paciente: ");
             int idPaciente = Convert.ToInt32(Console.ReadLine());
@@ -90,7 +89,7 @@ namespace ControleDeMedicamentos.ModuloRequisicao
                 Console.ReadKey();
                 return false;
             }
-            ApresentarMensagem("\nRequisições", ConsoleColor.Cyan);
+            ApresentarMensagem("\nRequisições", ConsoleColor.Yellow);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -20} ", " ID", "Paciente", "Funcionário", "Medicamento", "Quantidade retirada");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");

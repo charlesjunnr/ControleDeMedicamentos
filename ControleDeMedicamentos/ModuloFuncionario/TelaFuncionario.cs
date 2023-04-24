@@ -35,7 +35,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
         internal void CadastrarFuncionario()
         {
             Console.Clear();
-            ApresentarCabecalho("CADASTRO DE FUNCIONÁRIOS", ConsoleColor.Cyan);
+            ApresentarCabecalho("CADASTRO DE FUNCIONÁRIOS", ConsoleColor.Yellow);
             Console.Write("Nome: ");
             string nome = Console.ReadLine();
 
@@ -69,7 +69,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
                 return;
             }
 
-            ApresentarCabecalho("Editar funcionário", ConsoleColor.Cyan);
+            ApresentarCabecalho("Editar funcionário", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do funcionário: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
@@ -101,7 +101,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
             {
                 return;
             }
-            ApresentarCabecalho("EXCLUIR FUNCIONÁRIO", ConsoleColor.Cyan);
+            ApresentarCabecalho("EXCLUIR FUNCIONÁRIO", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do funcionário: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
@@ -121,7 +121,7 @@ namespace ControleDeMedicamentos.ModuloFuncionario
                 Console.ReadLine();
                 return false;
             }
-            ApresentarCabecalho("FUNCIONÁRIOS", ConsoleColor.Cyan);
+            ApresentarCabecalho("FUNCIONÁRIOS", ConsoleColor.Yellow);
 
             Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-20} | {4,-20} |", " ID", "Nome", "USB", "CPF", "Telefone");
             Console.WriteLine(" ---------------------------------------------------------------------------------------------------------- ");

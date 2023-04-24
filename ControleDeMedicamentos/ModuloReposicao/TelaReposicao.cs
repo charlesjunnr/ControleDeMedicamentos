@@ -58,7 +58,7 @@ namespace ControleDeMedicamentos.ModuloReposicao
 
             Console.WriteLine("Digite a quantidade de Medicamentos: ");
             reposicao.quantidadeMedicamento = Convert.ToInt32(Console.ReadLine());
-            reposicao.medicamento.quantidade += reposicao.quantidadeMedicamento;
+            reposicao.medicamento.AumentarQuantidade(reposicao.quantidadeMedicamento);
             
 
             VisualizarPreRequisitosFornecedor(true);
@@ -89,7 +89,7 @@ namespace ControleDeMedicamentos.ModuloReposicao
                 Console.ReadKey();
                 return false;
             }
-            ApresentarMensagem("Reposições", ConsoleColor.Cyan);
+            ApresentarMensagem("Reposições", ConsoleColor.Yellow);
             Console.WriteLine();
             Console.WriteLine("| {0, -3} | {1, -20} | {2, -20} | {3, -20} | {4, -30} | {5, -20} ", " ID", "Medicamento", "Fornecedor", "Funcionário", "Quantidade adicionada", "Data");
             Console.WriteLine(" --------------------------------------------------------------------------------------------------------------- ");

@@ -67,7 +67,7 @@ namespace ControleDeMedicamentos.ModuloFornecedor
                 return;
             }
 
-            ApresentarCabecalho("Editar fornecedor", ConsoleColor.Cyan);
+            ApresentarCabecalho("Editar fornecedor", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do fornecedor: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
@@ -99,7 +99,7 @@ namespace ControleDeMedicamentos.ModuloFornecedor
                 Console.ReadLine();
                 return false;
             }
-            ApresentarCabecalho("Fornecedores", ConsoleColor.Cyan);
+            ApresentarCabecalho("Fornecedores", ConsoleColor.Yellow);
 
             Console.WriteLine("| {0, -3} | {1, -30} | {2,-20} | {3,-25} | {4,-13} |", " ID", "Nome", "Empresa", "CNPJ", "Telefone");
 
@@ -121,7 +121,7 @@ namespace ControleDeMedicamentos.ModuloFornecedor
             {
                 return;
             }
-            ApresentarCabecalho("Excluindo fornecedor", ConsoleColor.Cyan);
+            ApresentarCabecalho("Excluindo fornecedor", ConsoleColor.Yellow);
             Console.WriteLine("Digite o Id do fornecedor: ");
             int posicao = Convert.ToInt32(Console.ReadLine());
 
